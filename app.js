@@ -1,15 +1,16 @@
 const http = require('http')
+const fs =require('fs')
+
 
 var server = http.createServer(
-    
-    function(request,response){
-        response.setHeader('Content-Type','text/html')
-        response.write('<!DOCTYPE html><html lang="ja">')
-        response.write('<head><meta charset="utf-8">')
-        response.write('<title>Hello</title></head>')
-        response.write('<body><h1>Hello</h1>')
-        response.write('<p>これはnode.jsのサンプルページです</p>','utf8')
-        response.write('</body></html>')
+
+    (request,response)=>{
+        fs.readFile('./index.html','UTF-8',
+        (error,data)=>{
+            response.writeHead(200,{'Content-Type':'text/html'});
+            response.write(data);
+            response.end();
+        });
     }
 );
 
